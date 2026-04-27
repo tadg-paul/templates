@@ -3,7 +3,7 @@
 #shellcheck source=shell-and-scripting-helpers/.qfuncs.sh
 source ~/.qfuncs.sh
 
-set -e -o pipefail
+set -euo pipefail
 shopt -s dotglob lastpipe
 
 if [ $# -eq 0 ] || [[ $1 =~ ^--?h(elp)?$ ]]; then
