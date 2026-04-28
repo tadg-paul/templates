@@ -1,19 +1,38 @@
 #!/usr/bin/env bash
 
-#shellcheck source=shell-and-scripting-helpers/.qfuncs.sh
-source ~/.qfuncs.sh
+### ABOUTME: If the help text doesn't explain, put it here ###
+helptext="USAGE:     ${0##*/} ARG [ARG]
+WTF:       ABOUTME
+WHERE:     Conditions
+DEFAULT:   Values
+"
+
+# Detect whether this file is being sourced or executed.
+if (return 0 2>/dev/null); then
+   _sourced=true
+else
+   _sourced=false
+fi
 
 set -euo pipefail
-shopt -s dotglob lastpipe
+IFS=$'\n\t'
+# shopt -s dotglob lastpipe
 
-if [ $# -eq 0 ] || [[ $1 =~ ^--?h(elp)?$ ]]; then
-   cat - <<EOM
-USAGE:
-   $cmd_base ARG [ARG]
-WHERE:
+# functions go here
+some_func(){
+   declare -p FUNCNAME
+}
 
-DEFAULT:
+_main() {
+   some_func
+}
 
-EOM
-   exit 1
+if ! $_sourced; then
+   if [[ ${1:-} =~ ^--?h(elp)?$ ]]; then
+      echo "$helptext" >&2
+      exit
+   fi
+   _main "$@"
 fi
+
+unset _sourced
