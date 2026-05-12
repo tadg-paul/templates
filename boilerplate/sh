@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
+### ABOUTME: See help text
+set -euo pipefail
 
-### ABOUTME: If the help text doesn't explain, put it here ###
 helptext="USAGE:     ${0##*/} ARG [ARG]
 WTF:       ABOUTME
 WHERE:     Conditions
 DEFAULT:   Values
 "
+
+# shopt -s dotglob lastpipe  # add if as required
+
+# functions go here
+some_func(){
+   declare -p FUNCNAME
+}
 
 # Detect whether this file is being sourced or executed.
 if (return 0 2>/dev/null); then
@@ -13,15 +21,6 @@ if (return 0 2>/dev/null); then
 else
    _sourced=false
 fi
-
-set -euo pipefail
-IFS=$'\n\t'
-# shopt -s dotglob lastpipe
-
-# functions go here
-some_func(){
-   declare -p FUNCNAME
-}
 
 _main() {
    some_func
